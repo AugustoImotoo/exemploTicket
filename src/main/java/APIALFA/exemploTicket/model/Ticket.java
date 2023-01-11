@@ -1,8 +1,8 @@
 package APIALFA.exemploTicket.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name= "ticket")
@@ -18,20 +18,23 @@ public class Ticket {
     @Column(name = "codmodulo")
     private Integer codModulo;
     @Column(name = "dataabertura")
-    private LocalDate dataAbertura;
+    @JsonFormat(pattern="dd/MM/yyyy")
+    private Date dataAbertura;
     @Column(name = "dataencerramento")
-    private LocalDate dataEncerramento;
+    @JsonFormat (pattern = "dd/MM/yyyy")
+    private Date dataEncerramento;
 
-    public Ticket(String titulo, Integer codCliente, Integer codModulo, LocalDate dataabertura, LocalDate dataencerramento) {
-        Titulo = titulo;
-        this.codCliente = codCliente;
-        this.codModulo = codModulo;
-        this.dataAbertura = dataabertura;
-        this.dataEncerramento = dataencerramento;
-    }
 
     public Ticket() {
 
+    }
+
+    public Ticket(String titulo, Integer codCliente, Integer codModulo, Date dataAbertura, Date dataEncerramento) {
+        Titulo = titulo;
+        this.codCliente = codCliente;
+        this.codModulo = codModulo;
+        this.dataAbertura = dataAbertura;
+        this.dataEncerramento = dataEncerramento;
     }
 
     public long getId() {
@@ -62,19 +65,19 @@ public class Ticket {
         this.codModulo = codModulo;
     }
 
-    public LocalDate getDataabertura() {
+    public Date getDataAbertura() {
         return dataAbertura;
     }
 
-    public void setDataabertura(LocalDate dataabertura) {
-        this.dataAbertura = dataabertura;
+    public void setDataAbertura(Date dataAbertura) {
+        this.dataAbertura = dataAbertura;
     }
 
-    public LocalDate getDataencerramento() {
+    public Date getDataEncerramento() {
         return dataEncerramento;
     }
 
-    public void setDataencerramento(LocalDate dataencerramento) {
-        this.dataEncerramento = dataencerramento;
+    public void setDataEncerramento(Date dataEncerramento) {
+        this.dataEncerramento = dataEncerramento;
     }
 }
