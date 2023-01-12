@@ -14,5 +14,5 @@ public interface TicketRepository extends JpaRepository<Ticket,Integer> {
 
     List<Ticket> findBycodModulo(String codmodulo);
 
-    List<Ticket> findBydataAberturaBetween(Date inicio, Date fim, Sort sort);
+    List<Ticket> findBydataAberturaBetween(Date dataAbertura, Date dataFim, Sort sort);
 }

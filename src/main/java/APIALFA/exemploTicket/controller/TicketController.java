@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -18,11 +19,11 @@ public class TicketController {
     @Autowired
     private TicketRepository ticketRepository;
 
-    @RequestMapping(value = "/ticket", method = RequestMethod.GET)
-    public ResponseEntity<List<Ticket>> findByDataAbertura() throws ParseException {
-        //Filtrando por data Fixa (01/03/2021) pois não possuo informações vindo de um Front preenchendo qual será o filtro.
+    @RequestMapping(value = "/ticket/{dataabertura}/{datafim}", method = RequestMethod.GET)
+    public ResponseEntity<List<Ticket>> findByDataAbertura(@PathVariable ("dataabertura") String dataAbertura, @PathVariable ("datafim") String dataFim) throws ParseException {
+        //Filtrando pela data de abertura (Inicial/Final)
         Sort sort = Sort.by("codCliente", "codModulo");
-        List<Ticket> ticketsPorData = ticketRepository.findBydataAberturaBetween(new SimpleDateFormat("yyyy-MM-dd").parse("2021-03-01"), new SimpleDateFormat("yyyy-MM-dd").parse("2021-03-01"), sort);
+        List<Ticket> ticketsPorData = ticketRepository.findBydataAberturaBetween(new SimpleDateFormat("yyyy-MM-dd").parse(String.valueOf(dataAbertura)), new SimpleDateFormat("yyyy-MM-dd").parse(String.valueOf(dataFim)), sort);
         return new ResponseEntity<>(ticketsPorData, HttpStatus.OK);
     }
 
